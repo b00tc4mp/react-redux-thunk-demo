@@ -11,8 +11,7 @@ const AddTodo = (() => {
                     if (!input.value.trim()) {
                         return
                     }
-                    //dispatch(addTodo(input.value))
-                    dispatch(addTodoAsync(input.value))
+                    dispatch(addTodo(input.value))
                     input.value = ''
                 }}>
                     <input ref={node => input = node} />
@@ -62,12 +61,15 @@ const FilterLink = (() => {
 
 const Todo = ({ onClick, completed, text }) => (
     <li
-        onClick={onClick}
         style={{
             textDecoration: completed ? 'line-through' : 'none'
         }}
     >
+        <span onClick={onClick}>
         {text}
+        </span>
+        &nbsp;
+        <button onClick={() => alert('TODO add deleting functionality')}>X</button>
     </li>
 )
 
@@ -117,8 +119,7 @@ const VisibleTodoList = (() => {
     })
 
     const mapDispatchToProps = dispatch => ({
-        //toggleTodo: id => dispatch(toggleTodo(id))
-        toggleTodo: id => dispatch(toggleTodoAsync(id))
+        toggleTodo: id => dispatch(toggleTodo(id))
     })
 
     return connect(

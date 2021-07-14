@@ -1,19 +1,14 @@
-let nextTodoId = 0
-
-const addTodo = text => ({
-  type: 'ADD_TODO',
-  id: nextTodoId++,
-  text
-})
-
-function addTodoAsync(text) {
+function addTodo(text) {
   return dispatch => {
-    setTimeout(() => {
-      console.log('adding a todo takes time ,)')
-      
-      // Yay! Can invoke sync or async actions with `dispatch`
-      dispatch(addTodo(text))
-    }, 1000)
+    createTodo(text, (error, id) => {
+      if (error) return alert(error.message)
+
+      dispatch({
+        type: 'ADD_TODO',
+        id,
+        text
+      })
+    })
   }
 }
 
@@ -22,19 +17,16 @@ const setVisibilityFilter = filter => ({
   filter
 })
 
-const toggleTodo = id => ({
-  type: 'TOGGLE_TODO',
-  id
-})
-
-function toggleTodoAsync(id) {
+function toggleTodo(id) {
   return dispatch => {
-    setTimeout(() => {
-      console.log('toggling a todo takes time :)')
-      
-      // Yay! Can invoke sync or async actions with `dispatch`
-      dispatch(toggleTodo(id))
-    }, 1000)
+    toggleTodoStatus(id, error => {
+      if (error) return alert(error.message)
+
+      dispatch({
+        type: 'TOGGLE_TODO',
+        id
+      })
+    })
   }
 }
 

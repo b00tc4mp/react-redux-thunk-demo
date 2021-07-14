@@ -12,10 +12,13 @@ const App = () => (
     </div>
 )
 
-const store = createStore(rootReducer, applyMiddleware(thunk))
+initRootReducer(rootReducer => {
+    const store = createStore(rootReducer, applyMiddleware(thunk))
 
-render(<StrictMode>
-    <Provider store={store}>
-        <App />
-    </Provider>
-</StrictMode>, document.getElementById('root'))
+    render(<StrictMode>
+        <Provider store={store}>
+            <App />
+        </Provider>
+    </StrictMode>, document.getElementById('root'))
+})
+
